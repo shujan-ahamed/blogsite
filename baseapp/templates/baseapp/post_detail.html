@@ -1,0 +1,81 @@
+{% extends 'baseapp/base.html' %}
+
+{% block content %}
+
+
+
+    <div class="container">
+        <h2><a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</a></h2>
+        <div>
+            <p class="postcontent">{{ post.text|safe|linebreaksbr }}</p>
+            
+        </div>
+
+        {% if post.published_date %}
+            <p>Published On: {{ post.published_date|date:'D M Y' }}</p>
+        {% else %}
+            <p>Created On: {{ post.created_date|date:'D M Y'}}</p>
+            
+            <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
+
+        {% endif %}
+        <div >
+            <a style="text-decoration: none;" id="link" href="{% url 'post_detail' pk=post.pk %}">Comments : {{post.approved_comments.count}}</a>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="post-icons">
+            <a class="btn" href="{% url 'post_edit' pk=post.pk %}">
+            <i class="fa-solid fa-pencil"></i>
+            </a>
+            <a class="btn " href="{% url 'post_remove' pk=post.pk %}">
+                <i class="fa-solid fa-trash-can"></i>
+            </a>
+        </div>
+        {% endif %}
+
+        <hr>
+        
+
+        <div class="comment-form">
+            <button class="add-comment"><a href="{% url 'add_comment_to_post' pk=post.pk %}">Comment</a></button>
+
+        </div>
+
+
+        <div class="comment-post">
+            {% for comment in post.comments.all %}
+
+            {% if user.is_authenticated or comment.approved_comment %}
+                    
+                    {% if not comment.appproved_comment %}
+                    <div class="comment-icons">
+                        <a class="btn " href="{% url 'comment_remove' pk=comment.pk %}">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                        <a class="btn" href="{% url 'comment_approve' pk=comment.pk %}">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </a>
+                    </div>
+                        
+                    {% endif %}
+                        <p>{{comment.text|safe|linebreaksbr }}</p>
+                        <p>posted by: {{comment.author}}</p>
+                        <p>{{ comment.created_date|date:'D M Y' }}</p><hr>
+            {% endif %}
+
+        {% empty %}
+        <p>No comment posted yet!</p>
+                    
+        {% endfor %}
+        </div>
+        
+        
+    </div>
+
+
+
+
+
+
+
+{% endblock %}
