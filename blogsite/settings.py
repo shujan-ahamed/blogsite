@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import django
+import os
 import django_heroku
 import dj_database_url
 
@@ -18,7 +19,7 @@ SECRET_KEY = 'django-insecure-sx8ecvfapucvh2xt83)#e5v)x%th=!mh=wu+c#)u)4p*c1dipy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -115,9 +116,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_DIRS = [
-    BASE_DIR / 'static'
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
