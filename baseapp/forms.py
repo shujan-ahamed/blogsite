@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from .models import Post, Comment, Category
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from ckeditor.widgets import CKEditorWidget
+
 
 
 
@@ -24,7 +24,7 @@ class RegistrationForm(UserCreationForm):
     
 
 class PostForm(ModelForm):
-    text = forms.CharField(widget=CKEditorWidget())
+
     class Meta:
         
         model = Post
