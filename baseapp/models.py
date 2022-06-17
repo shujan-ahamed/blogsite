@@ -24,6 +24,16 @@ class Post(models.Model):
     created_date = models.DateTimeField(default = timezone.now)
     published_date = models.DateTimeField(null=True, blank=True)
 
+    def form_valid(self, PostForm):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+
+        form = PostForm.save(commit=False)
+        form.author = self.request.user
+        form.save()
+
+        return super().form_valid(form)
+
     def publish(self):
         self.published_date = timezone.now()
         self.save()
