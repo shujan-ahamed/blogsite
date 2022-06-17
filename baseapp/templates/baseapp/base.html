@@ -117,8 +117,13 @@
   </header>
 
   <div class="nav-scroller bg-light">
-    <nav class="nav d-flex justify-content-between">
+    <nav class="nav d-flex justify-content-between pt-2 px-1">
       
+      {% for category in category_list %}
+        <a href="#" style="text-decoration: none; padding: 0;">{{category|title}}</a>
+        
+      {% endfor %}
+        
      
       
     </nav>
