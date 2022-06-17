@@ -115,11 +115,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 .blog-content{
   font-family: 'Montserrat', sans-serif;
-  font-size: medium;
   font-size: larger;
   font-style: normal;
   color: black;
-  font-weight: bold;
   font-size: 1em;
 
 }
